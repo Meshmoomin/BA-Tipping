@@ -69,7 +69,8 @@ const RoundingInterface = () => {
                     </View>
                 </View>
             </View>
-        </View>);
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
