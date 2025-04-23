@@ -1,12 +1,23 @@
 import * as React from "react";
-import {Text, StyleSheet, View, Image} from "react-native";
-import OkChevron from "../../assets/Icons/OkChevron";
-import FadeUpper from "../../assets/Icons/FadeUpper";
-import FadeLower from "../../assets/Icons/FadeLower";
-import ArrowUp from "../../assets/Icons/ArrowUp";
-import ArrowDown from "../../assets/Icons/ArrowDown";
+import {Text, StyleSheet, View, Image, Pressable} from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { useScenarioStore } from '@/app/store/store';
+import { ScreenNavigationProp } from '@/types/navigation';
 
-const RoundingInterface = () => {
+import OkChevron from "@/assets/Icons/OkChevron";
+import FadeUpper from "@/assets/Icons/FadeUpper";
+import FadeLower from "@/assets/Icons/FadeLower";
+import ArrowUp from "@/assets/Icons/ArrowUp";
+import ArrowDown from "@/assets/Icons/ArrowDown";
+
+export default function Scenario1() {
+    const navigation = useNavigation<ScreenNavigationProp>();
+    const { markCompleted } = useScenarioStore();
+  
+    const handleComplete = () => {
+      markCompleted(); // Update Zustand store
+      navigation.navigate("FollowUpGeneral"); // Direct transition
+    };  
   	
   	return (
     		<View style={styles.tipScreenRoundingV4}>
@@ -18,12 +29,12 @@ const RoundingInterface = () => {
             						<Text style={styles.betrag}>€</Text>
           					</View>
         				</View>
-        				<View style={[styles.okButton, styles.roudUpShadowBox]}>
+        				<Pressable onPress={handleComplete} style={[styles.okButton, styles.roudUpShadowBox]}>
           					<View style={[styles.stateLayer, styles.zahlFlexBox]}>
             						<Text style={styles.labelText}>OK</Text>
             						<OkChevron style={styles.icon} width={40} height={40} />
           					</View>
-        				</View>
+        				</Pressable>
       			</View>
       			<View style={[styles.currentUpDown, styles.followingPosition]}>
         				<View style={[styles.numbers, styles.followingFlexBox]}>
@@ -314,5 +325,3 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffff"
     }
 });
-
-export default RoundingInterface;

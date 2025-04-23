@@ -1,17 +1,13 @@
 import { View, Pressable, Text, StyleSheet } from 'react-native';
-import { useScenarioStore } from '@/store/store';
+import { useScenarioStore } from '@/app/store/store';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/types/navigation';
 
 console.log('Store available?', !!useScenarioStore);
 
-type RootStackParamList = {
-  Admin: undefined;
-  Scenario: { scenarioId?: number };
-  FollowUp: { scenarioId: number };
-};
 
-type AdminScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Admin'>;
+type AdminScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function AdminScreen() {
   const navigation = useNavigation<AdminScreenNavigationProp>();
@@ -25,12 +21,12 @@ export default function AdminScreen() {
   // Handle manual scenario selection
   const handleScenarioSelect = (scenarioId: number) => {
     setScenario(scenarioId);
-    navigation.navigate('Scenario', {}); // No need to pass ID - Zustand manages it
+    navigation.navigate('Scenario'); // No need to pass ID - Zustand manages it
   };
   
   const handleNextTrial = () => {
     nextScenario(); // Updates currentScenario in Zustand
-    navigation.navigate('Scenario', {});
+    navigation.navigate('Scenario');
   };
 
   // Scenario data - expand this for 20+ scenarios later

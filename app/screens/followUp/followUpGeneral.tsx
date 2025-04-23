@@ -1,18 +1,30 @@
 import * as React from "react";
-import {Text, StyleSheet, Image, View, Pressable} from "react-native";
-import FullSmile from "../../assets/Icons/FullSmile";
-import PartialSmile from "../../assets/Icons/PartialSmile";
-import Indifferent from "../../assets/Icons/Indifferent";
-import PartialFrown from "../../assets/Icons/PartialFrown";
-import FullFrown from "../../assets/Icons/FullFrown";
+import {Text, StyleSheet, View, Pressable} from "react-native";
 
-const FollowUpGeneral = () => {
+import { useNavigation } from '@react-navigation/native';
+import { ScreenNavigationProp } from '@/types/navigation';
+import { useScenarioStore } from '@/app/store/store';
+
+import FullSmile from "../../../assets/Icons/FullSmile";
+import PartialSmile from "../../../assets/Icons/PartialSmile";
+import Indifferent from "../../../assets/Icons/Indifferent";
+import PartialFrown from "../../../assets/Icons/PartialFrown";
+import FullFrown from "../../../assets/Icons/FullFrown";
+
+export default function FollowUpGeneral() {
+	const navigation = useNavigation<ScreenNavigationProp>();
+		const { currentScenario } = useScenarioStore();
+	  
+		const handleOptionSelect = (value: number) => {
+		  // Save answer to store (optional)
+		  navigation.navigate('FollowUpComplexity'); 
+		};
   	
   	return (
     		<View style={styles.allgemeinFu}>
       			<View style={[styles.surveyScreenGeneral, styles.stateLayerPosition]}>
         				<Text style={styles.wieHatIhnen}>Wie hat Ihnen der Bezahlprozess gefallen?</Text>
-          					<Pressable style={[styles.buttonsLabels, styles.stateLayerFlexBox]} onPress={()=>{}}>
+          					<Pressable style={[styles.buttonsLabels, styles.stateLayerFlexBox]} onPress={()=>{handleOptionSelect}}>
             						<View style={styles.buttons}>
               							<View style={styles.stateLayerFlexBox}>
                 								<View style={[styles.scaleOption, styles.scaleShadowBox]}>
@@ -161,6 +173,3 @@ const FollowUpGeneral = () => {
             						height: 892
           					}
         				});
-        				
-        				export default FollowUpGeneral;
-        				

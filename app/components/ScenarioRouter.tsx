@@ -1,9 +1,8 @@
-// app/components/ScenarioRouter.tsx
-import { useScenarioStore } from '@/store/store';
-import Scenario1 from '@/screens/roundingInterface';
-import Scenario2 from '@/screens/fixedInterface';
-import Scenario3 from '@/screens/percentInterface';
-import Scenario4 from '@/screens/oldSchoolInterface';
+import { useScenarioStore } from '@/app/store/store';
+import Scenario1 from '@/app/screens/scenarios/roundingInterface';
+import Scenario2 from '@/app/screens/scenarios/fixedInterface';
+import Scenario3 from '@/app/screens/scenarios/percentInterface';
+import Scenario4 from '@/app/screens/scenarios/oldSchoolInterface';
 
 export default function ScenarioRouter() {
   const { currentScenario } = useScenarioStore();
