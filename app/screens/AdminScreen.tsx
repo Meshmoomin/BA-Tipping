@@ -32,9 +32,9 @@ export default function AdminScreen() {
   // Scenario data - expand this for 20+ scenarios later
   const scenarios = [
     { id: 1, name: 'Rounding Interface' },
-    { id: 2, name: 'Scenario 2' },
-    { id: 3, name: 'Scenario 3' },
-    { id: 4, name: 'Scenario 4' },
+    { id: 2, name: 'Fixed Interface' },
+    { id: 3, name: 'Percent Interface' },
+    { id: 4, name: 'Old School Interface' },
   ];
 
   return (
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    margin: 60,
     backgroundColor: '#f5f5f5',
   },
   title: {
@@ -114,13 +115,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeScenario: {
-    backgroundColor: '#6200ee',
+    backgroundColor: '#C1DFCD',
   },
   buttonText: {
     fontSize: 16,
   },
   nextButton: {
-    backgroundColor: '#6200ee',
+    backgroundColor: '#4F4F4F',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   exportButton: {
-    backgroundColor: '#ff5722',
+    backgroundColor: '#AA5F5A',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',

@@ -7,6 +7,7 @@ export type RootStackParamList = {
     FollowUpIntrusiveness: undefined;
     FollowUpComplexity: undefined;
     Payment: undefined;
+    TrialComplete: undefined;
 };
 
 // Type for useNavigation hook

@@ -3,6 +3,7 @@ import {Text, StyleSheet, View, Image, Pressable} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { useScenarioStore } from '@/app/store/store';
 import { ScreenNavigationProp } from '@/types/navigation';
+import { commonStyles } from '@/app/styles/commonStyles';
 
 import OkChevron from "@/assets/Icons/OkChevron";
 import FadeUpper from "@/assets/Icons/FadeUpper";
@@ -16,14 +17,15 @@ export default function Scenario1() {
   
     const handleComplete = () => {
       markCompleted(); // Update Zustand store
-      navigation.navigate("FollowUpGeneral"); // Direct transition
+      navigation.navigate("Payment"); // Direct transition
     };  
   	
   	return (
-    		<View style={styles.tipScreenRoundingV4}>
+    		<View style={commonStyles.fullScreen}>
+                <Text style={{position: 'absolute', top: 50, left: 20, fontSize: 16, color: '#4f4f4f', fontFamily: 'Roboto-Regular'}} onPress={() => navigation.goBack()}> Zurück</Text>
       			<View style={styles.baseScreenPriceAndOk}>
         				<View style={styles.preis}>
-          					<Text style={styles.betrag}>Betrag:</Text>
+          					<Text style={[styles.betrag,commonStyles.lightGrey]}>Betrag:</Text>
           					<View style={[styles.zahl, styles.zahlFlexBox]}>
             						<Text style={styles.betrag}>3.20</Text>
             						<Text style={styles.betrag}>€</Text>
@@ -317,11 +319,5 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center"
-    },
-    tipScreenRoundingV4: {
-        height: 892,
-        width: "100%",
-        flex: 1,
-        backgroundColor: "#ffff"
     }
 });
