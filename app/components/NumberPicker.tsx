@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
-import { View, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Dimensions, Pressable } from 'react-native';
+
+import ArrowUp from '@/assets/Icons/ArrowUp';
+import ArrowDown from '@/assets/Icons/ArrowDown';
 
 const { height } = Dimensions.get('window');
 const ITEM_HEIGHT = 80; // Height of each number item
@@ -35,6 +38,13 @@ const NumberPicker = ({
   return (
     <View style={styles.container}>
       <View style={styles.mask} />
+
+        <Pressable 
+            onPress={() => scrollRef.current?.scrollTo({ y: (values.indexOf(selectedValue)-1) * ITEM_HEIGHT })}
+            style={styles.arrowButton}>
+            <ArrowUp width={24} height={24}/>
+        </Pressable>
+
       <ScrollView
         ref={scrollRef}
         showsVerticalScrollIndicator={false}
@@ -54,6 +64,13 @@ const NumberPicker = ({
           </View>
         ))}
       </ScrollView>
+
+        <Pressable
+            onPress={() => scrollRef.current?.scrollTo({ y: (values.indexOf(selectedValue)+1) * ITEM_HEIGHT })}
+            style={styles.arrowButton}>
+            <ArrowDown width={24} height={24} />
+        </Pressable>
+
       <View style={styles.mask} />
     </View>
   );
@@ -88,6 +105,12 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     backgroundColor: 'rgba(255,255,255,0.8)',
     zIndex: 1,
+  },
+  arrowButton: {
+    position: 'absolute',
+    top: "40%",
+    right: "60%",
+    height: ITEM_HEIGHT
   },
 });
 
