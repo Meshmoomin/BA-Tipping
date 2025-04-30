@@ -41,80 +41,37 @@ export default function Scenario1() {
         {" "}
         Zurück
       </Text>
-      <View style={styles.preis}>
-        <Text style={[styles.betrag, commonStyles.lightGrey]}>Betrag:</Text>
-        <View style={[styles.zahl, styles.zahlFlexBox]}>
-          <Text style={styles.betrag}>3.20</Text>
-          <Text style={styles.betrag}>€</Text>
-        </View>
-      </View>
-      <Pressable
-        onPress={handleComplete}
-        style={[styles.okButton, styles.roudUpShadowBox]}
-      >
-        <View style={[styles.stateLayer, styles.zahlFlexBox]}>
-          <Text style={styles.labelText}>OK</Text>
-          <OkChevron style={styles.icon} width={40} height={40} />
-        </View>
-      </Pressable>
-      {/*<View style={[styles.currentUpDown, styles.followingPosition]}>
-        				<View style={[styles.numbers, styles.followingFlexBox]}>
-          					<View style={styles.higher}>
-            						<View style={[styles.followingValues, styles.followingFlexBox]}>
-              							<View style={styles.lower1FlexBox}>
-                								<Text style={[styles.text1, styles.textTypo]}>4.50</Text>
-                								<Text style={[styles.text1, styles.textTypo]}>€</Text>
-              							</View>
-              							<View style={styles.lower1FlexBox}>
-                								<Text style={[styles.text3, styles.textTypo]}>4.00</Text>
-                								<Text style={[styles.text3, styles.textTypo]}>€</Text>
-              							</View>
-            						</View>
-            						<FadeLower style={[styles.fadeIcon, styles.fadeIconPosition]} />
-          					</View>
-          					<View style={[styles.betragAktuell, styles.currentTotalFlexBox]}>
-            						<Text style={styles.currentTotalText}>3.50</Text>
-            						<Text style={styles.currentTotalText}>{`€`}</Text>
-                    </View>
-                    <View style={styles.lower}>
-                        <View style={[styles.followingValues1, styles.followingFlexBox]}>
-                            <View style={[styles.lower1, styles.lower1FlexBox]}>
-                                <Text style={[styles.text3, styles.textTypo]}>3.20</Text>
-                                <Text style={[styles.text3, styles.textTypo]}>€</Text>
-                            </View>
-                            <View style={[styles.lower1, styles.lower1FlexBox]}>
-                                <Text style={[styles.text1, styles.textTypo]}>3.20</Text>
-                                <Text style={[styles.text1, styles.textTypo]}>€</Text>
-                            </View>
-                        </View>
-                        <FadeUpper style={[styles.fadeIcon, styles.fadeIconPosition]} />
-                    </View>
-                </View>
-                <View style={styles.roundingOptions}>
-                    <View style={[styles.roundUp, styles.roudUpLayout]}>
-                        <ArrowUp style={styles.icon1} width={49} height={50} />
-                    </View>
-                    <View style={styles.roudUpLayout}>
-                        <View style={[styles.roundDown1, styles.fadeIconPosition]}>
-                            <ArrowDown width={49} height={50} />
-                        </View>
-                    </View>
-                </View>
-            </View>*/}
 
-      {/* <View style={styles.pickerContainer}>
-                <NumberPicker 
-                values={values}
-                selectedValue={currentValue}
-                onSelect={setCurrentValue}
-                />
-            </View> */}
-      <View style={styles.pickerContainer}>
-        <RoundingCarousel
-          values={[4.5, 4.0, 3.5, 3.2, 3.0]}
-          selectedValue={currentValue}
-          onChange={setCurrentValue}
-        />
+      <View style={styles.centerFlexColumn}>
+        <View style={styles.totalBox}>
+          <Text style={[styles.totalText, commonStyles.lightGrey]}>
+            Betrag:
+          </Text>
+          <View style={[styles.currentTotalNumber, styles.totalNumberFlexBox]}>
+            <Text style={styles.totalText}>3.20</Text>
+            <Text style={styles.totalText}>€</Text>
+          </View>
+        </View>
+
+        <View style={styles.carouselBox}>
+          <RoundingCarousel
+            values={[4.5, 4.0, 3.5, 3.2, 3.0]}
+            selectedValue={currentValue}
+            onChange={setCurrentValue}
+          />
+        </View>
+
+        <View style={styles.okButtonBox}>
+          <Pressable
+            onPress={handleComplete}
+            style={[styles.okButton, styles.roudUpShadowBox]}
+          >
+            <View style={[styles.okButtonLabel]}>
+              <Text style={styles.labelText}>OK</Text>
+              <OkChevron style={styles.chevronIcon} width={40} height={40} />
+            </View>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -123,15 +80,24 @@ export default function Scenario1() {
 const styles = StyleSheet.create({
   baseText: {
     includeFontPadding: false,
-    textAlignVertical: "center",
   },
-  pickerContainer: {
-    marginTop: 20,
-    height: 240, // 3 items visible
+  centerFlexColumn: {
+    flex: 1,
     alignItems: "center",
+    margin: 20,
+    marginTop: 100,
+    padding: 10,
+    borderColor: "green", // Debugging style, remove in production.
+    borderWidth: 5, // Debugging style, remove in production.
   },
-  zahlFlexBox: {
-    alignSelf: "stretch",
+  carouselBox: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 40,
+  },
+  totalNumberFlexBox: {
+    flex: 0,
     justifyContent: "center",
   },
   roudUpShadowBox: {
@@ -149,45 +115,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  followingPosition: {
-    left: "50%",
-    position: "absolute",
-  },
-  followingFlexBox: {
-    gap: 15,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textTypo: {
-    color: "#4f4f4f",
-    fontFamily: "Roboto-Regular",
-    textAlign: "center",
-  },
-  fadeIconPosition: {
-    bottom: "0%",
-    top: "0%",
-    overflow: "hidden",
-    left: "0%",
-    right: "0%",
-    height: "100%",
-    position: "absolute",
-    width: "100%",
-  },
-  lower1FlexBox: {
-    gap: 4,
-    flexDirection: "row",
-    zIndex: 1,
-  },
   currentTotalFlexBox: {
-    gap: 4,
     flexDirection: "row",
-    zIndex: 5,
   },
-  roudUpLayout: {
-    height: 88,
-    width: 88,
-  },
-  betrag: {
+  totalText: {
     fontSize: 28,
     lineHeight: 36,
     fontWeight: "500",
@@ -195,17 +126,14 @@ const styles = StyleSheet.create({
     color: "#afafaf",
     textAlign: "center",
   },
-  zahl: {
+  currentTotalNumber: {
     flexDirection: "row",
     alignItems: "center",
   },
-  preis: {
-    top: "12.22%",
-    padding: 10,
+  totalBox: {
+    flex: 0,
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "stretch", // Allows the container to stretch within its parent
-    flexDirection: "column", // Ensures the text stacks properly
   },
   labelText: {
     fontSize: 45,
@@ -214,149 +142,35 @@ const styles = StyleSheet.create({
     lineHeight: 52,
     textAlign: "center",
   },
-  icon: {
-    overflow: "hidden",
+  okButtonBox: {
+    justifyContent: "center",
+    alignItems: "center",
   },
-  stateLayer: {
+  chevronIcon: {},
+  okButtonLabel: {
+    flex: 0, // Default for `View`, can be removed.
     paddingLeft: 16,
     paddingTop: 16,
     paddingRight: 20,
     paddingBottom: 16,
-    gap: 12,
     flexDirection: "row",
     alignItems: "center",
-    flex: 1,
-    alignSelf: "stretch",
+    justifyContent: "center",
   },
   okButton: {
-    height: "12.22%",
-    width: "57.04%",
-    top: "74.65%",
-    right: "21.48%",
-    bottom: "13.13%",
-    left: "21.48%",
-    overflow: "hidden",
-    position: "absolute",
-  },
-  baseScreenPriceAndOk: {
-    top: "-0.01%",
-    bottom: "0.01%",
-    left: "0%",
-    right: "0%",
-    height: "100%",
-    position: "absolute",
-    width: "100%",
-  },
-  text1: {
-    fontSize: 24,
-    lineHeight: 32,
-  },
-  text3: {
-    fontSize: 38,
-    lineHeight: 52,
-    color: "#4f4f4f",
-  },
-  followingValues: {
-    height: "39.93%",
-    marginLeft: -46.58,
-    top: "27.06%",
-    bottom: "33.01%",
-    width: 102,
-    left: "50%",
-    position: "absolute",
-  },
-  fadeIcon: {
-    maxWidth: "100%",
-    maxHeight: "100%",
-  },
-  higher: {
-    height: 121,
-    width: 180,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: "#ece6f0",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
   },
   currentTotalText: {
     fontSize: 80,
-    lineHeight: 84, // Should be ~10-20% larger than font size
+    lineHeight: 90,
     fontWeight: "600",
     fontFamily: "Roboto-Bold",
     color: "#1f1f1f",
     textAlign: "center",
-    includeFontPadding: false, // Prevents extra padding around text
-    textAlignVertical: "center", // Ensures vertical centering
-  },
-  betragAktuell: {
-    minHeight: 100, // some breathing room
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 10, // Reduced vertical padding
-    zIndex: 4,
-    backgroundColor: "transparent", // Remove test color
-  },
-  lower1: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  followingValues1: {
-    height: "15.83%",
-    marginLeft: -34.23,
-    top: "30.87%",
-    bottom: "53.3%",
-    width: 89,
-    left: "50%",
-    position: "absolute",
-  },
-  lower: {
-    height: 120,
-    width: 180,
-  },
-  numbers: {
-    width: 294,
-  },
-  icon1: {},
-  roundUp: {
-    minWidth: 80,
-    backgroundColor: "#ece6f0",
-    borderRadius: 16,
-    shadowOpacity: 1,
-    elevation: 8,
-    shadowRadius: 8,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowColor: "rgba(0, 0, 0, 0.15)",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-    flexDirection: "row",
-  },
-  roundDown1: {
-    minWidth: 80,
-    backgroundColor: "#ece6f0",
-    borderRadius: 16,
-    shadowOpacity: 1,
-    elevation: 8,
-    shadowRadius: 8,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowColor: "rgba(0, 0, 0, 0.15)",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  roundingOptions: {
-    alignItems: "flex-end",
-    gap: 39,
-    marginLeft: -29,
-    justifyContent: "center",
-  },
-  currentUpDown: {
-    marginLeft: -179,
-    top: 244,
-    width: 358,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

@@ -11,11 +11,10 @@ import {
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
-const ITEM_HEIGHT = 80;
-const VISIBLE_ITEMS = 5;
+const ITEM_HEIGHT = 120; // ;
+const VISIBLE_ITEMS = 3;
 const CENTER_OFFSET = ITEM_HEIGHT * Math.floor(VISIBLE_ITEMS / 2);
 
-// Properly typed Animated FlatList
 const AnimatedFlatList = Animated.createAnimatedComponent(
   FlatList as React.ComponentClass<
     React.ComponentProps<typeof FlatList<number>>
@@ -40,7 +39,6 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
   const scrollY = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef<FlatList<number>>(null);
 
-  // Properly typed getItemLayout
   const getItemLayout = (
     data: ArrayLike<number> | null | undefined,
     index: number
@@ -50,7 +48,6 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
     index,
   });
 
-  // Rest of your component remains the same...
   const renderItem = ({ item, index }: { item: number; index: number }) => {
     const inputRange = [
       (index - 2) * ITEM_HEIGHT,
@@ -68,9 +65,12 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
 
     const opacity = scrollY.interpolate({
       inputRange,
-      outputRange: [0.5, 0.75, 1, 0.75, 0.5],
+      outputRange: [0, 0.7, 1, 0.5, 0.7],
       extrapolate: "clamp",
     });
+
+    // Determine if the current item is the center item
+    const isCenterItem = selectedValue === item;
 
     return (
       <Animated.View
@@ -83,7 +83,14 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
           },
         ]}
       >
-        <Text style={styles.valueText}>{item.toFixed(2)}€</Text>
+        <Text
+          style={[
+            styles.valueText,
+            { fontWeight: isCenterItem ? "bold" : "normal" },
+          ]}
+        >
+          {item.toFixed(2)}€
+        </Text>
       </Animated.View>
     );
   };
@@ -125,14 +132,17 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT * VISIBLE_ITEMS,
     justifyContent: "center",
     overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "#ccc",
   },
   item: {
     justifyContent: "center",
     alignItems: "center",
   },
   valueText: {
-    fontSize: 24,
-    color: "#1f1f1f",
+    fontSize: 70,
+    lineHeight: 85,
+    color: "#4f4f4f",
     fontFamily: "Roboto-Regular",
   },
 });

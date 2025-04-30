@@ -81,9 +81,6 @@ const RoundingCarouselBroken: React.FC<RoundingCarouselProps> = ({
   );
 };
 
-// Keep your existing StyleSheet
-
-// Keep your existing styles
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",

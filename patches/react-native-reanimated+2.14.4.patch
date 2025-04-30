@@ -1,8 +1,0 @@
-diff --git a/lib/index.js b/lib/index.js
-index abc1234..def5678 100644
---- a/lib/index.js
-+++ b/lib/index.js
-@@ -1,4 +1,4 @@
--import Animated from './Animated';
-+import Animated from './Animated.js';
- export * from './Animated';

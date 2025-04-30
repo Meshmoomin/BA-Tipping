@@ -1,0 +1,339 @@
+import * as React from "react";
+import { StyleSheet, View, Image, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "../assets/icon.svg";
+import Icon1 from "../assets/icon1.svg";
+import Divider from "../assets/divider.svg";
+import Icon2 from "../assets/icon2.svg";
+import Icon3 from "../assets/icon3.svg";
+import Divider1 from "../assets/divider1.svg";
+import Icon4 from "../assets/icon4.svg";
+import Icon5 from "../assets/icon5.svg";
+import Divider2 from "../assets/divider2.svg";
+import Icon6 from "../assets/icon6.svg";
+import Icon7 from "../assets/icon7.svg";
+import Divider3 from "../assets/divider3.svg";
+import Icon8 from "../assets/icon8.svg";
+
+const AdminScreenScreen = () => {
+  return (
+    <SafeAreaView style={styles.adminScreenScreen}>
+      <View style={[styles.baseScreen, styles.baseScreenBg]} />
+      <View style={styles.tipScreenRoundedTip}>
+        <View style={[styles.stateLayer, styles.stateFlexBox]}>
+          <View style={styles.leadingElement}>
+            <Icon style={[styles.icon, styles.iconLayout]} />
+          </View>
+          <View style={styles.content}>
+            <Text style={styles.labelText}>Rounded Tip</Text>
+          </View>
+          <View style={styles.leadingElement}>
+            <Icon1 style={[styles.icon, styles.iconLayout]} />
+          </View>
+        </View>
+        <Divider style={[styles.dividerIcon, styles.iconLayout]} />
+      </View>
+      <View style={[styles.tipScreenPercentagePrompt, styles.tipPosition]}>
+        <View style={[styles.stateLayer, styles.stateFlexBox]}>
+          <View style={styles.leadingElement}>
+            <Icon2 style={[styles.icon, styles.iconLayout]} />
+          </View>
+          <View style={styles.content}>
+            <Text style={styles.labelText}>% Tip</Text>
+          </View>
+          <View style={styles.leadingElement}>
+            <Icon3 style={[styles.icon, styles.iconLayout]} />
+          </View>
+        </View>
+        <Divider1 style={[styles.dividerIcon, styles.iconLayout]} />
+      </View>
+      <View style={[styles.tipScreenManualEntry, styles.tipPosition]}>
+        <View style={[styles.stateLayer, styles.stateFlexBox]}>
+          <View style={styles.leadingElement}>
+            <Icon4 style={[styles.icon, styles.iconLayout]} />
+          </View>
+          <View style={styles.content}>
+            <Text style={[styles.labelText2, styles.saveDataTypo]}>
+              Old School Tip
+            </Text>
+          </View>
+          <View style={styles.leadingElement}>
+            <Icon5 style={[styles.icon, styles.iconLayout]} />
+          </View>
+        </View>
+        <Divider2 style={[styles.dividerIcon, styles.iconLayout]} />
+      </View>
+      <View style={[styles.tipScreenFixedAmount, styles.tipPosition]}>
+        <View style={[styles.stateLayer, styles.stateFlexBox]}>
+          <View style={styles.leadingElement}>
+            <Icon6 style={[styles.icon, styles.iconLayout]} />
+          </View>
+          <View style={styles.content}>
+            <Text style={[styles.labelText2, styles.saveDataTypo]}>
+              Fixed Amount
+            </Text>
+          </View>
+          <View style={styles.leadingElement}>
+            <Icon7 style={[styles.icon, styles.iconLayout]} />
+          </View>
+        </View>
+        <Divider3 style={[styles.dividerIcon, styles.iconLayout]} />
+      </View>
+      <View style={[styles.buttonExportTrialLog, styles.buttonShadowBox]}>
+        <View style={[styles.stateLayer4, styles.stateFlexBox]}>
+          <Icon8 style={styles.leadingElement} width={24} height={24} />
+          <Text style={styles.labelText4}>Continue Trial</Text>
+        </View>
+      </View>
+      <View
+        style={[styles.buttonContinueTrial, styles.saveDataSwitchFlexBox]}
+      />
+      <View style={[styles.saveDataSwitch, styles.saveDataSwitchFlexBox]}>
+        <View style={[styles.switch, styles.switchLayout]}>
+          <View style={styles.handle}>
+            <View style={styles.target}>
+              <View style={[styles.stateLayer5, styles.switchLayout]}>
+                <View style={[styles.handleShape, styles.baseScreenBg]}>
+                  <View style={styles.container} />
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <Text style={[styles.saveData, styles.saveDataTypo]}>Save Data</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  baseScreenBg: {
+    overflow: "hidden",
+    backgroundColor: "#fff",
+  },
+  stateFlexBox: {
+    gap: 12,
+    alignItems: "center",
+    flexDirection: "row",
+    alignSelf: "stretch",
+  },
+  iconLayout: {
+    maxWidth: "100%",
+    overflow: "hidden",
+    width: "100%",
+  },
+  tipPosition: {
+    left: "12.86%",
+    right: "12.14%",
+    width: "75%",
+    height: "9.87%",
+    position: "absolute",
+  },
+  saveDataTypo: {
+    color: "#4f4f4f",
+    textAlign: "left",
+    fontFamily: "Roboto-Regular",
+    lineHeight: 24,
+    letterSpacing: 1,
+    fontSize: 16,
+  },
+  buttonShadowBox: {
+    minWidth: 80,
+    backgroundColor: "#ece6f0",
+    borderRadius: 16,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+    left: "24.08%",
+    right: "24.22%",
+    width: "51.7%",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  saveDataSwitchFlexBox: {
+    display: "none",
+    alignItems: "center",
+    position: "absolute",
+  },
+  switchLayout: {
+    borderRadius: 100,
+    alignItems: "center",
+  },
+  baseScreen: {
+    height: "101.79%",
+    width: "103.88%",
+    top: "-0.9%",
+    right: "-1.94%",
+    bottom: "-0.9%",
+    left: "-1.94%",
+    borderRadius: 18,
+    borderStyle: "solid",
+    borderColor: "#cac4d0",
+    borderWidth: 8,
+    position: "absolute",
+  },
+  icon: {
+    height: "100%",
+    top: "0%",
+    right: "0%",
+    bottom: "0%",
+    left: "0%",
+    maxHeight: "100%",
+    position: "absolute",
+  },
+  leadingElement: {},
+  labelText: {
+    color: "#1d1b20",
+    textAlign: "left",
+    fontFamily: "Roboto-Regular",
+    lineHeight: 24,
+    letterSpacing: 1,
+    fontSize: 16,
+    alignSelf: "stretch",
+  },
+  content: {
+    flex: 1,
+  },
+  stateLayer: {
+    height: 40,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  dividerIcon: {
+    height: 17,
+    alignSelf: "stretch",
+  },
+  tipScreenRoundedTip: {
+    top: "19.06%",
+    right: "12.57%",
+    bottom: "71.08%",
+    left: "12.43%",
+    width: "75%",
+    height: "9.87%",
+    position: "absolute",
+  },
+  tipScreenPercentagePrompt: {
+    top: "28.92%",
+    bottom: "61.21%",
+  },
+  labelText2: {
+    alignSelf: "stretch",
+  },
+  tipScreenManualEntry: {
+    top: "38.79%",
+    bottom: "51.35%",
+  },
+  tipScreenFixedAmount: {
+    top: "48.37%",
+    bottom: "41.76%",
+  },
+  labelText4: {
+    fontSize: 14,
+    letterSpacing: 0,
+    lineHeight: 20,
+    fontWeight: "500",
+    fontFamily: "Roboto-Medium",
+    color: "#65558f",
+    textAlign: "center",
+  },
+  stateLayer4: {
+    paddingLeft: 16,
+    paddingTop: 16,
+    paddingRight: 20,
+    paddingBottom: 16,
+    justifyContent: "center",
+    flex: 1,
+  },
+  buttonExportTrialLog: {
+    height: "10.31%",
+    top: "61.1%",
+    bottom: "28.59%",
+    alignItems: "center",
+    position: "absolute",
+  },
+  buttonContinueTrial: {
+    height: "10.43%",
+    top: "82.74%",
+    bottom: "6.84%",
+    minWidth: 80,
+    backgroundColor: "#ece6f0",
+    borderRadius: 16,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+    left: "24.08%",
+    right: "24.22%",
+    width: "51.7%",
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  container: {
+    borderRadius: 23,
+    width: 2,
+    height: 2,
+  },
+  handleShape: {
+    borderRadius: 24,
+    padding: 11,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  stateLayer5: {
+    padding: 8,
+    justifyContent: "center",
+  },
+  target: {
+    marginTop: -24,
+    top: "50%",
+    right: -12,
+    padding: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    position: "absolute",
+  },
+  handle: {
+    alignSelf: "stretch",
+    flex: 1,
+  },
+  switch: {
+    backgroundColor: "#65558f",
+    width: 52,
+    height: 32,
+    justifyContent: "flex-end",
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    flexDirection: "row",
+  },
+  saveData: {
+    display: "flex",
+    width: 147,
+    height: 18,
+    alignItems: "center",
+  },
+  saveDataSwitch: {
+    top: 662,
+    left: 116,
+    width: 180,
+    gap: 10,
+    flexDirection: "row",
+  },
+  adminScreenScreen: {
+    height: 892,
+    width: "100%",
+    flex: 1,
+  },
+});
+
+export default AdminScreenScreen;

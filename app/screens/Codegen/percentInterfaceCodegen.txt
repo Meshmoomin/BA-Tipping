@@ -1,0 +1,425 @@
+import * as React from "react";
+import { Text, StyleSheet, Image, View, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Righticons from "../assets/right-icons.svg";
+import Cameracutout from "../assets/camera-cutout.svg";
+import Icon from "../assets/icon.svg";
+import Cancel from "../assets/cancel.svg";
+
+const TipScreen = () => {
+  return (
+    <SafeAreaView style={styles.tipScreen}>
+      <View style={styles.base}>
+        <View style={[styles.baseScreen, styles.baseScreenPosition]}>
+          <View style={styles.baseScreen1}>
+            <View
+              style={[styles.buildingBlocksstatusBar, styles.buildingPosition]}
+            >
+              <Text style={styles.time}>9:30</Text>
+              <Righticons style={styles.rightIcons} width={46} height={17} />
+              <Cameracutout
+                style={[styles.cameraCutoutIcon, styles.iconLayout]}
+                width={24}
+                height={24}
+              />
+            </View>
+            <View
+              style={[styles.buildingBlocksnavigation, styles.buildingPosition]}
+            >
+              <View style={[styles.handle, styles.handlePosition]} />
+            </View>
+          </View>
+          <View style={[styles.backButton, styles.baseScreenPosition]}>
+            <View style={[styles.stateLayer, styles.zahlFlexBox1]}>
+              <Icon
+                style={[styles.icon, styles.iconLayout]}
+                width={24}
+                height={24}
+              />
+              <Text style={[styles.label, styles.labelTypo]}>Zurück</Text>
+            </View>
+          </View>
+        </View>
+        <View style={[styles.preis, styles.zahlFlexBox]}>
+          <Text style={styles.betrag}>Betrag:</Text>
+          <View style={[styles.zahl, styles.zahlFlexBox]}>
+            <Text style={styles.betrag}>3.20</Text>
+            <Text style={styles.betrag}>€</Text>
+          </View>
+        </View>
+      </View>
+      <View style={[styles.responseOptions, styles.zahlFlexBox]}>
+        <View style={[styles.topRow, styles.rowFlexBox]}>
+          <View style={[styles.tipOption, styles.tipShadowBox]}>
+            <View style={styles.andFlexBox}>
+              <Text style={[styles.text1, styles.textClr]}>5%</Text>
+              <View style={styles.absoluteValue}>
+                <Text style={[styles.text2, styles.textClr]}>0.05</Text>
+                <Text style={[styles.text2, styles.textClr]}>€</Text>
+              </View>
+            </View>
+          </View>
+          <View style={[styles.tipOption1, styles.tipShadowBox]}>
+            <View style={styles.andFlexBox}>
+              <Text style={[styles.text1, styles.textClr]}>10%</Text>
+              <View style={styles.absoluteValue}>
+                <Text style={[styles.text2, styles.textClr]}>0.10</Text>
+                <Text style={[styles.text2, styles.textClr]}>€</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={[styles.topRow, styles.rowFlexBox]}>
+          <View style={[styles.tipOption2, styles.tipShadowBox]}>
+            <View style={styles.andFlexBox}>
+              <Text style={[styles.text1, styles.textClr]}>15%</Text>
+              <View style={styles.absoluteValue}>
+                <Text style={[styles.text2, styles.textClr]}>0.15</Text>
+                <Text style={[styles.text2, styles.textClr]}>€</Text>
+              </View>
+            </View>
+          </View>
+          <View style={[styles.tipOption3, styles.tipShadowBox]}>
+            <View style={styles.andFlexBox}>
+              <Text style={[styles.text1, styles.textClr]}>20%</Text>
+              <View style={styles.absoluteValue}>
+                <Text style={[styles.text2, styles.textClr]}>0.20</Text>
+                <Text style={[styles.text2, styles.textClr]}>€</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.rowFlexBox}>
+          <Pressable
+            style={[styles.noTip, styles.tipShadowBox]}
+            onPress={() => {}}
+          >
+            <View style={[styles.noTipButton, styles.tipShadowBox]}>
+              <View style={[styles.centerLayout, styles.andFlexBox]}>
+                <Cancel style={styles.cancelIcon} width={38} height={38} />
+                <Text style={[styles.text2, styles.textClr]}>Kein Tip</Text>
+              </View>
+            </View>
+          </Pressable>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  baseScreenPosition: {
+    left: "0%",
+    position: "absolute",
+  },
+  buildingPosition: {
+    right: 16,
+    left: 0,
+    position: "absolute",
+  },
+  iconLayout: {
+    width: 24,
+    height: 24,
+  },
+  handlePosition: {
+    left: "50%",
+    position: "absolute",
+  },
+  zahlFlexBox1: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+  },
+  labelTypo: {
+    lineHeight: 24,
+    letterSpacing: 0,
+    fontSize: 16,
+    fontFamily: "Roboto-Medium",
+    fontWeight: "500",
+  },
+  zahlFlexBox: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  rowFlexBox: {
+    height: 66,
+    justifyContent: "center",
+    alignSelf: "stretch",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  tipShadowBox: {
+    height: 113,
+    backgroundColor: "#ece6f0",
+    borderRadius: 28,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    overflow: "hidden",
+  },
+  textClr: {
+    color: "#4f4f4f",
+    textAlign: "center",
+  },
+  andFlexBox: {
+    gap: 5,
+    alignItems: "center",
+  },
+  time: {
+    fontSize: 14,
+    letterSpacing: 0.1,
+    lineHeight: 20,
+    color: "#1d1b20",
+    zIndex: 0,
+    textAlign: "left",
+    fontFamily: "Roboto-Medium",
+    fontWeight: "500",
+  },
+  rightIcons: {
+    zIndex: 1,
+  },
+  cameraCutoutIcon: {
+    marginLeft: -12,
+    top: 18,
+    zIndex: 2,
+    left: "50%",
+    position: "absolute",
+  },
+  buildingBlocksstatusBar: {
+    height: 52,
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+    gap: 0,
+    flexDirection: "row",
+    top: 0,
+    right: 16,
+  },
+  handle: {
+    marginTop: -2,
+    marginLeft: -54,
+    top: "50%",
+    borderRadius: 12,
+    backgroundColor: "#1d1b20",
+    width: 108,
+    height: 4,
+  },
+  buildingBlocksnavigation: {
+    bottom: 16,
+    height: 24,
+  },
+  baseScreen1: {
+    height: "101.79%",
+    width: "103.88%",
+    top: "-0.9%",
+    right: "-1.94%",
+    bottom: "-0.9%",
+    left: "-1.94%",
+    borderRadius: 18,
+    backgroundColor: "#fff",
+    borderStyle: "solid",
+    borderColor: "#cac4d0",
+    borderWidth: 8,
+    overflow: "hidden",
+    position: "absolute",
+  },
+  icon: {
+    overflow: "hidden",
+  },
+  label: {
+    color: "#49454f",
+    textAlign: "left",
+  },
+  stateLayer: {
+    paddingLeft: 16,
+    paddingTop: 16,
+    paddingRight: 24,
+    paddingBottom: 16,
+    alignItems: "center",
+    flex: 1,
+    alignSelf: "stretch",
+  },
+  backButton: {
+    height: "6.28%",
+    width: "27.67%",
+    top: "7.62%",
+    right: "72.33%",
+    bottom: "86.1%",
+    borderRadius: 100,
+    alignItems: "center",
+    flexDirection: "row",
+    overflow: "hidden",
+  },
+  baseScreen: {
+    height: "100%",
+    top: "0%",
+    right: "0%",
+    bottom: "0%",
+    width: "100%",
+    left: "0%",
+  },
+  betrag: {
+    fontSize: 28,
+    lineHeight: 36,
+    color: "#afafaf",
+    textAlign: "center",
+    fontFamily: "Roboto-Medium",
+    fontWeight: "500",
+  },
+  zahl: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+  },
+  preis: {
+    height: "8.74%",
+    width: "17.72%",
+    top: "12.22%",
+    right: "41.02%",
+    bottom: "79.04%",
+    left: "41.26%",
+    padding: 10,
+    position: "absolute",
+  },
+  base: {
+    width: 412,
+    left: 0,
+    top: 0,
+    position: "absolute",
+    height: 892,
+  },
+  text1: {
+    fontSize: 24,
+    lineHeight: 32,
+    fontWeight: "600",
+    fontFamily: "Roboto-Bold",
+    display: "flex",
+    width: 67,
+    height: 34,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text2: {
+    lineHeight: 24,
+    letterSpacing: 0,
+    fontSize: 16,
+    fontFamily: "Roboto-Medium",
+    fontWeight: "500",
+  },
+  absoluteValue: {
+    gap: 2,
+    flexDirection: "row",
+  },
+  tipOption: {
+    width: 151,
+    height: 113,
+    backgroundColor: "#ece6f0",
+    borderRadius: 28,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+  },
+  tipOption1: {
+    width: 151,
+    height: 113,
+    backgroundColor: "#ece6f0",
+    borderRadius: 28,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+  },
+  topRow: {
+    gap: 21,
+  },
+  tipOption2: {
+    width: 151,
+    height: 113,
+    backgroundColor: "#ece6f0",
+    borderRadius: 28,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+  },
+  tipOption3: {
+    width: 151,
+    height: 113,
+    backgroundColor: "#ece6f0",
+    borderRadius: 28,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+  },
+  cancelIcon: {},
+  centerLayout: {
+    flexDirection: "row",
+  },
+  noTipButton: {
+    width: 320,
+    height: 113,
+    backgroundColor: "#ece6f0",
+    borderRadius: 28,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+  },
+  noTip: {
+    width: 322,
+    height: 113,
+    backgroundColor: "#ece6f0",
+    borderRadius: 28,
+    shadowOpacity: 1,
+    elevation: 8,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+  },
+  responseOptions: {
+    top: 273,
+    left: 19,
+    width: 377,
+    gap: 75,
+    position: "absolute",
+  },
+  tipScreen: {
+    height: 892,
+    width: "100%",
+    flex: 1,
+  },
+});
+
+export default TipScreen;
