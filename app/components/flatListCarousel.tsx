@@ -8,10 +8,17 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  Pressable,
 } from "react-native";
+import { commonStyles } from "@/app/styles/commonStyles";
+
+import ArrowUp from "@/assets/Icons/ArrowUp";
+import ArrowDown from "@/assets/Icons/ArrowDown";
+import FadeUpper from "@/assets/Icons/FadeUpper";
+import FadeLower from "@/assets/Icons/FadeLower";
 
 const { width, height } = Dimensions.get("window");
-const ITEM_HEIGHT = 120; // ;
+const ITEM_HEIGHT = 120;
 const VISIBLE_ITEMS = 3;
 const CENTER_OFFSET = ITEM_HEIGHT * Math.floor(VISIBLE_ITEMS / 2);
 
@@ -28,16 +35,31 @@ const AnimatedFlatList = Animated.createAnimatedComponent(
 interface RoundingCarouselProps {
   values: number[];
   selectedValue: number;
+  currentTotal: number;
   onChange: (value: number) => void;
 }
 
 const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
   values,
   selectedValue,
+  currentTotal,
   onChange,
 }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef<FlatList<number>>(null);
+
+  // Add currentTotal to the bottom of the list
+  const extendedValues = [...values, currentTotal];
+
+  // Initialize the selected value to the last value in the list
+  const [centerIndex, setCenterIndex] = React.useState(
+    extendedValues.length - 1
+  );
+
+  // Ensure the selectedValue is initialized to the last value
+  React.useEffect(() => {
+    onChange(extendedValues[extendedValues.length - 1]);
+  }, [extendedValues, onChange]);
 
   const getItemLayout = (
     data: ArrayLike<number> | null | undefined,
@@ -47,6 +69,37 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
     offset: ITEM_HEIGHT * index,
     index,
   });
+
+  const scrollToIndex = (index: number) => {
+    if (index >= 0 && index < extendedValues.length) {
+      flatListRef.current?.scrollToOffset({
+        offset: index * ITEM_HEIGHT,
+        animated: true,
+      });
+      onChange(extendedValues[index]); // Update the selected value
+      setCenterIndex(index); // Update the center index
+    }
+  };
+
+  const handleScrollUp = () => {
+    scrollToIndex(centerIndex - 1);
+  };
+
+  const handleScrollDown = () => {
+    scrollToIndex(centerIndex + 1);
+  };
+
+  const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const y = e.nativeEvent.contentOffset.y;
+    const index = Math.round(y / ITEM_HEIGHT);
+    setCenterIndex(index); // Update the center index dynamically
+  };
+
+  const handleMomentumEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const y = e.nativeEvent.contentOffset.y;
+    const index = Math.round(y / ITEM_HEIGHT);
+    onChange(extendedValues[index]); // Update the selected value
+  };
 
   const renderItem = ({ item, index }: { item: number; index: number }) => {
     const inputRange = [
@@ -69,8 +122,7 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
       extrapolate: "clamp",
     });
 
-    // Determine if the current item is the center item
-    const isCenterItem = selectedValue === item;
+    const isCenterItem = index === centerIndex;
 
     return (
       <Animated.View
@@ -95,45 +147,113 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
     );
   };
 
-  const handleMomentumEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const y = e.nativeEvent.contentOffset.y;
-    const index = Math.round(y / ITEM_HEIGHT);
-    onChange(values[index]);
-  };
-
   return (
-    <View style={styles.container}>
-      <AnimatedFlatList
-        ref={flatListRef}
-        data={values}
-        renderItem={renderItem}
-        getItemLayout={getItemLayout}
-        snapToInterval={ITEM_HEIGHT}
-        decelerationRate="fast"
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={16}
-        contentContainerStyle={{
-          paddingVertical: CENTER_OFFSET,
-        }}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true }
-        )}
-        onMomentumScrollEnd={handleMomentumEnd}
-        initialScrollIndex={values.indexOf(selectedValue)}
+    <View style={styles.wrapper}>
+      <View style={styles.container}>
+        <FadeUpper
+          style={[
+            {
+              top: 0,
+            },
+            styles.fade,
+          ]}
+        />
+        <AnimatedFlatList
+          ref={flatListRef}
+          data={extendedValues}
+          renderItem={renderItem}
+          getItemLayout={getItemLayout}
+          snapToInterval={ITEM_HEIGHT}
+          decelerationRate={"fast"}
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+          contentContainerStyle={{
+            paddingVertical: CENTER_OFFSET,
+          }}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            {
+              useNativeDriver: true,
+              listener: handleScroll, // Dynamically update the center index
+            }
+          )}
+          onMomentumScrollEnd={handleMomentumEnd}
+          initialScrollIndex={extendedValues.length - 1} // Start at the last value
+        />
+      </View>
+      <FadeLower
+        style={[
+          {
+            bottom: 0,
+          },
+          styles.fade,
+        ]}
       />
+      <View style={styles.buttonContainer}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            commonStyles.button,
+            pressed && commonStyles.buttonPressed,
+          ]}
+          onPress={handleScrollUp}
+        >
+          <ArrowUp style={styles.icon} />
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            commonStyles.button,
+            pressed && commonStyles.buttonPressed,
+          ]}
+          onPress={handleScrollDown}
+        >
+          <ArrowDown style={styles.icon} />
+        </Pressable>
+      </View>
     </View>
   );
 };
 
-// Keep your existing styles
+// Updated styles
 const styles = StyleSheet.create({
+  wrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   container: {
+    flex: 1,
     height: ITEM_HEIGHT * VISIBLE_ITEMS,
     justifyContent: "center",
     overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "#ccc",
+    /* borderWidth: 1, // Debugging style, remove in production.
+    borderColor: "#ccc", // Debugging style, remove in production*/
+  },
+  fade: {
+    pointerEvents: "none",
+    position: "absolute",
+    flex: 1,
+    flexDirection: "row",
+    zIndex: 1,
+  },
+  icon: {
+    margin: 5,
+  },
+  buttonContainer: {
+    justifyContent: "space-between",
+    marginLeft: 10,
+  },
+  button: {
+    backgroundColor: "#ece6f0",
+    padding: 10,
+    borderRadius: 5,
+    marginVertical: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#65558f",
   },
   item: {
     justifyContent: "center",
