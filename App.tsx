@@ -36,6 +36,7 @@ export default function App() {
             <Stack.Screen
               name="FollowUpComplexity"
               component={FollowUpComplexity}
+              options={{}}
             />
             <Stack.Screen
               name="FollowUpIntrusiveness"

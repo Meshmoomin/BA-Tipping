@@ -15,7 +15,7 @@ const TotalEntry = () => {
     if (amount) {
       setTotal(parseFloat(amount)); // Save the amount to the store
       /* console.log("Total amount set to:", amount); // Debugging line */ // Debug, remove in production
-      setLogMessage("Total:" + amount + ","); // Debugging line
+      setLogMessage("Total, " + amount + ", "); // Debugging line
       navigation.navigate("Scenario"); // Navigate to the next screen
     }
   };
@@ -35,11 +35,11 @@ const TotalEntry = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Small Betrag: 3.20€ */}
+      {/* 
       <View style={styles.topAmountContainer}>
         <Text style={styles.label}>Betrag:</Text>
         <Text style={styles.smallAmount}>3.20€</Text>
-      </View>
+      </View> */}
 
       {/* Editable Large Amount */}
       <View style={styles.largeAmountContainer}>
@@ -88,6 +88,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
+    alignContent: "center",
+    justifyContent: "center",
   },
   topAmountContainer: {
     flexDirection: "row",

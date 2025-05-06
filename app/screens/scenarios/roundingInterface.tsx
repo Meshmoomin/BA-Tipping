@@ -20,8 +20,14 @@ export default function Scenario1() {
 
   const handleComplete = () => {
     setTippedTotal(currentTippedTotal); // Update Zustand store with the new total
-    setLogMessage("RoundingInterface, TippedTotal:" + currentTippedTotal); // save data for csv
-    console.log("RoundingInterface, TippedTotal:" + currentTippedTotal); // log for debugging
+    setLogMessage(
+      "TippedTotal, " +
+        currentTippedTotal +
+        ", TipPercentage, " +
+        ((currentTippedTotal - currentTotal) / currentTotal).toFixed(2) +
+        ", "
+    ); // save data for csv
+    //console.log("TippedTotal: " + currentTippedTotal + ", "); // log for debugging
     markCompleted(); // Update Zustand store
     navigation.navigate("Payment"); // Direct transition
   };

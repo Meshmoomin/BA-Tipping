@@ -6,12 +6,15 @@ type ScenarioState = {
   currentTotal: number;
   logMessage: string;
   tippedTotal: number;
+  nextParticipantID: number;
   nextScenario: () => void;
   setScenario: (id: number) => void;
   markCompleted: () => void;
+  incrementParticipantID: (id: number) => void;
   setTotal: (total: number) => void;
   setTippedTotal: (total: number) => void;
   setLogMessage: (message: string) => void;
+  resetLogMessage: () => void;
 };
 
 export const useScenarioStore = create<ScenarioState>((set) => ({
@@ -19,7 +22,9 @@ export const useScenarioStore = create<ScenarioState>((set) => ({
   completedScenarios: [],
   currentTotal: 0,
   tippedTotal: 0,
+  nextParticipantID: 1,
   logMessage: "\n start of log \n",
+  incrementParticipantID: (id) => set({ nextParticipantID: id }),
   setTippedTotal: (total) => set({ tippedTotal: total }),
   setLogMessage: (message) =>
     set((state) => ({ logMessage: state.logMessage + message })),
@@ -33,4 +38,5 @@ export const useScenarioStore = create<ScenarioState>((set) => ({
     set((state) => ({
       completedScenarios: [...state.completedScenarios, state.currentScenario],
     })),
+  resetLogMessage: () => set({ logMessage: "\n Next Trial \n" }),
 }));

@@ -5,13 +5,16 @@ import LabeledScaleOption from "@/app/components/labeledScaleOption";
 import { useNavigation } from "@react-navigation/native";
 import { ScreenNavigationProp } from "@/types/navigation";
 import { useScenarioStore } from "@/app/store/store";
+import { useCustomBackHandler } from "@/app/hooks/backHandler";
 
 export default function FollowUpComplexity() {
   const navigation = useNavigation<ScreenNavigationProp>();
-  const { currentScenario } = useScenarioStore();
+  useCustomBackHandler(() => true); // Returning `true` disables the back button
+
+  const { setLogMessage } = useScenarioStore();
 
   const handleOptionSelect = (value: number) => {
-    // Save answer to store (optional)
+    setLogMessage("FollowUpComplexity, " + value + ", "); // save data for csv
     navigation.navigate("FollowUpIntrusiveness");
   };
 

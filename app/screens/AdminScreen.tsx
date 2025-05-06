@@ -4,25 +4,22 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/types/navigation";
 
-console.log("Store available?", !!useScenarioStore);
+//console.log("Store available?", !!useScenarioStore); // Debugging, remove in production
 
 type AdminScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function AdminScreen() {
   const navigation = useNavigation<AdminScreenNavigationProp>();
-  const { currentScenario, nextScenario, setScenario, completedScenarios } =
-    useScenarioStore();
-
-  // Handle manual scenario selection
-  const handleScenarioSelect = (scenarioId: number) => {
-    setScenario(scenarioId);
-    navigation.navigate("totalEntry"); // No need to pass ID - Zustand manages it
-  };
-
-  const handleNextTrial = () => {
-    nextScenario(); // Updates currentScenario in Zustand
-    navigation.navigate("totalEntry");
-  };
+  const {
+    currentScenario,
+    completedScenarios,
+    nextParticipantID,
+    resetLogMessage,
+    nextScenario,
+    setScenario,
+    incrementParticipantID,
+    setLogMessage,
+  } = useScenarioStore();
 
   // Scenario data - expand this for 20+ scenarios later
   const scenarios = [
@@ -32,14 +29,35 @@ export default function AdminScreen() {
     { id: 4, name: "Old School Interface" },
   ];
 
+  // Handle manual scenario selection
+  const handleScenarioSelect = (scenarioId: number) => {
+    resetLogMessage(); // Reset log message for the new scenario
+    setScenario(scenarioId);
+    incrementParticipantID(nextParticipantID + 1); // Increment participant ID in Zustand
+    setLogMessage(
+      "ID, " +
+        nextParticipantID +
+        ", Interface, " +
+        scenarios[scenarioId - 1].name +
+        ", "
+    ); // Add Scenario to Log
+    //console.log(`Scenario selected: ${scenarios[scenarioId - 1].name}`); // Debugging remove in production
+    navigation.navigate("totalEntry"); // No need to pass ID - Zustand manages it
+  };
+
+  const handleNextTrial = () => {
+    nextScenario(); // Updates currentScenario in Zustand
+    navigation.navigate("totalEntry");
+  };
+
   return (
     <View style={styles.container}>
+      {/* Clear log when the screen is displayed */}
       <Text style={styles.title}>Scenario Controls</Text>
       <Text style={styles.subtitle}>Current: Scenario {currentScenario}</Text>
       <Text style={styles.completed}>
         Completed: {completedScenarios.length}/4
       </Text>
-
       {/* Manual Scenario Selection Buttons */}
       <View style={styles.buttonGroup}>
         {scenarios.map((scenario) => (
@@ -55,12 +73,10 @@ export default function AdminScreen() {
           </Pressable>
         ))}
       </View>
-
       {/* Next Trial Button */}
       <Pressable style={styles.nextButton} onPress={handleNextTrial}>
         <Text style={styles.nextButtonText}>Next Trial →</Text>
       </Pressable>
-
       {/* Export Button (Placeholder) */}
       <Pressable
         style={styles.exportButton}
