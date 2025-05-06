@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, StyleSheet, View, Dimensions, Pressable } from "react-native";
+import { Text, StyleSheet, View, Pressable } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { useScenarioStore } from "@/app/store/store";
@@ -8,19 +8,20 @@ import { commonStyles } from "@/app/styles/commonStyles";
 import RoundingCarousel from "@/app/components/flatListCarousel";
 
 import OkChevron from "@/assets/Icons/OkChevron";
-import FadeUpper from "@/assets/Icons/FadeUpper";
-import FadeLower from "@/assets/Icons/FadeLower";
-import ArrowUp from "@/assets/Icons/ArrowUp";
-import ArrowDown from "@/assets/Icons/ArrowDown";
 
 export default function Scenario1() {
   const navigation = useNavigation<ScreenNavigationProp>();
-  const { markCompleted } = useScenarioStore();
+  const { currentTotal, markCompleted, setTippedTotal, setLogMessage } =
+    useScenarioStore();
 
-  const [currentValue, setCurrentValue] = React.useState(3.5);
-  const values = [4.5, 4.0, 3.5, 3.2, 3.0]; // Your possible values
+  const [currentTippedTotal, setCurrentTippedTotal] =
+    React.useState(currentTotal); // Read currentTotal from totalEntry
+  const values = [5.0, 4.5, 4.0, 3.5, 3.2]; // replace with algorithm
 
   const handleComplete = () => {
+    setTippedTotal(currentTippedTotal); // Update Zustand store with the new total
+    setLogMessage("RoundingInterface, TippedTotal:" + currentTippedTotal); // save data for csv
+    console.log("RoundingInterface, TippedTotal:" + currentTippedTotal); // log for debugging
     markCompleted(); // Update Zustand store
     navigation.navigate("Payment"); // Direct transition
   };
@@ -48,23 +49,26 @@ export default function Scenario1() {
             Betrag:
           </Text>
           <View style={[styles.currentTotalNumber, styles.totalNumberFlexBox]}>
-            <Text style={styles.totalText}>3.20</Text>
-            <Text style={styles.totalText}>€</Text>
+            <Text style={styles.totalText}>{currentTotal.toFixed(2)}€</Text>
           </View>
         </View>
 
         <View style={styles.carouselBox}>
           <RoundingCarousel
-            values={[4.5, 4.0, 3.5, 3.2, 3.0]}
-            selectedValue={currentValue}
-            onChange={setCurrentValue}
+            values={values}
+            currentTotal={currentTotal}
+            onChange={setCurrentTippedTotal}
           />
         </View>
 
         <View style={styles.okButtonBox}>
           <Pressable
             onPress={handleComplete}
-            style={[styles.okButton, styles.roudUpShadowBox]}
+            style={({ pressed }) => [
+              styles.okButton,
+              styles.roudUpShadowBox,
+              pressed && commonStyles.buttonPressed,
+            ]}
           >
             <View style={[styles.okButtonLabel]}>
               <Text style={styles.labelText}>OK</Text>
@@ -87,14 +91,14 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 100,
     padding: 10,
-    borderColor: "green", // Debugging style, remove in production.
-    borderWidth: 5, // Debugging style, remove in production.
+    /* borderColor: "green", // Debugging style, remove in production.
+    borderWidth: 5, // Debugging style, remove in production. */
   },
   carouselBox: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 40,
+    padding: 10,
   },
   totalNumberFlexBox: {
     flex: 0,
@@ -121,8 +125,8 @@ const styles = StyleSheet.create({
   totalText: {
     fontSize: 28,
     lineHeight: 36,
-    fontWeight: "500",
-    fontFamily: "Roboto-Medium",
+    fontWeight: 500,
+    fontFamily: "Roboto",
     color: "#afafaf",
     textAlign: "center",
   },

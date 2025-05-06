@@ -11,6 +11,7 @@ import FollowUpIntrusiveness from "@/app/screens/followUp/followUpIntrusiveness"
 import TerminalView from "./app/components/TerminalView";
 import PaymentScreen from "@/app/screens/paymentScreen";
 import TrialComplete from "@/app/screens/trialComplete";
+import TotalEntry from "@/app/screens/totalEntry";
 import { View } from "react-native";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -42,6 +43,7 @@ export default function App() {
             />
             <Stack.Screen name="Payment" component={PaymentScreen} />
             <Stack.Screen name="TrialComplete" component={TrialComplete} />
+            <Stack.Screen name="totalEntry" component={TotalEntry} />
             {/* Add more screens as needed */}
             {/* Example: <Stack.Screen name="AnotherScreen" component={AnotherScreen} /> */}
             {/* <Stack.Screen name="FollowUpIntrusiveness" component={FollowUpIntrusiveness} /> */}

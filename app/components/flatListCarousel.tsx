@@ -34,14 +34,12 @@ const AnimatedFlatList = Animated.createAnimatedComponent(
 
 interface RoundingCarouselProps {
   values: number[];
-  selectedValue: number;
   currentTotal: number;
   onChange: (value: number) => void;
 }
 
 const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
   values,
-  selectedValue,
   currentTotal,
   onChange,
 }) => {
@@ -55,11 +53,6 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
   const [centerIndex, setCenterIndex] = React.useState(
     extendedValues.length - 1
   );
-
-  // Ensure the selectedValue is initialized to the last value
-  React.useEffect(() => {
-    onChange(extendedValues[extendedValues.length - 1]);
-  }, [extendedValues, onChange]);
 
   const getItemLayout = (
     data: ArrayLike<number> | null | undefined,
@@ -99,6 +92,7 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
     const y = e.nativeEvent.contentOffset.y;
     const index = Math.round(y / ITEM_HEIGHT);
     onChange(extendedValues[index]); // Update the selected value
+    //console.log("Selected value:", extendedValues[index]); // Log the selected value
   };
 
   const renderItem = ({ item, index }: { item: number; index: number }) => {
@@ -140,6 +134,9 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
             styles.valueText,
             { fontWeight: isCenterItem ? "bold" : "normal" },
           ]}
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          minimumFontScale={0.5}
         >
           {item.toFixed(2)}€
         </Text>
@@ -159,6 +156,9 @@ const RoundingCarousel: React.FC<RoundingCarouselProps> = ({
           ]}
         />
         <AnimatedFlatList
+          onLayout={() => {
+            scrollToIndex(extendedValues.length - 1);
+          }}
           ref={flatListRef}
           data={extendedValues}
           renderItem={renderItem}
@@ -261,9 +261,10 @@ const styles = StyleSheet.create({
   },
   valueText: {
     fontSize: 70,
-    lineHeight: 85,
+    lineHeight: 80,
     color: "#4f4f4f",
     fontFamily: "Roboto-Regular",
+    fontWeight: "semibold",
   },
 });
 

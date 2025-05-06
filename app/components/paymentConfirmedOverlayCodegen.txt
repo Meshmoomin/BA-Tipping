@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Check from "../assets/check.svg";
+import Check from "@/assets/Icons/Check";
 
 const PaymentConfirmedOverlay = () => {
   return (
