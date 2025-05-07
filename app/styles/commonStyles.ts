@@ -25,6 +25,12 @@ export const commonStyles = StyleSheet.create({
     color: "#4f4f4f",
     fontFamily: "Roboto-Regular",
   },
+  textLarge: {
+    fontSize: 32,
+  },
+  textSmall: {
+    fontSize: 22,
+  },
   heading: {
     fontSize: 24,
     fontWeight: "bold",
@@ -78,5 +84,44 @@ export const commonStyles = StyleSheet.create({
   fullScreen: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  backButton: {
+    position: "absolute",
+    top: 20,
+    left: 20,
+    borderRadius: 100,
+    padding: 10,
+    backgroundColor: "#ece6f0",
+  },
+  cancelButton: {
+    marginTop: 50,
+    width: "80%",
+    height: 50,
+    borderRadius: 16,
+    backgroundColor: "#aa5f5a",
+    shadowColor: "rgba(0, 0, 0, 0.15)",
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+    elevation: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cancelButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontFamily: "Roboto-Medium",
+  },
+  tapPlace: {
+    marginTop: 50,
+    width: "80%",
+    height: 200,
+    alignSelf: "center",
+  },
+  instructionText: {
+    marginTop: 20,
+    textAlign: "center",
+    color: "#4f4f4f",
+    fontSize: 16,
+    fontFamily: "Roboto-Regular",
   },
 });

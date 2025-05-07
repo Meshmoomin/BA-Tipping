@@ -11,7 +11,7 @@ import OkChevron from "@/assets/Icons/OkChevron";
 
 export default function Scenario1() {
   const navigation = useNavigation<ScreenNavigationProp>();
-  const { currentTotal, markCompleted, setTippedTotal, setLogMessage } =
+  const { currentTotal, markCompleted, setTippedTotal, setTipSelectionLog } =
     useScenarioStore();
 
   const [currentTippedTotal, setCurrentTippedTotal] =
@@ -20,7 +20,7 @@ export default function Scenario1() {
 
   const handleComplete = () => {
     setTippedTotal(currentTippedTotal); // Update Zustand store with the new total
-    setLogMessage(
+    setTipSelectionLog(
       "TippedTotal, " +
         currentTippedTotal +
         ", TipPercentage, " +

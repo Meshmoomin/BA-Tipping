@@ -8,14 +8,14 @@ import { useScenarioStore } from "@/app/store/store";
 const TotalEntry = () => {
   const [amount, setAmount] = useState(""); // State to manage the large amount
   const navigation = useNavigation<ScreenNavigationProp>();
-  const { setTotal, setLogMessage } = useScenarioStore();
+  const { setTotal, setTotalEntryLog } = useScenarioStore();
 
   const handleEnterPress = () => {
     // Handle the Enter key press
     if (amount) {
       setTotal(parseFloat(amount)); // Save the amount to the store
       /* console.log("Total amount set to:", amount); // Debugging line */ // Debug, remove in production
-      setLogMessage("Total, " + amount + ", "); // Debugging line
+      setTotalEntryLog("Total, " + amount + ", "); // Debugging line
       navigation.navigate("Scenario"); // Navigate to the next screen
     }
   };

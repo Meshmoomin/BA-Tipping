@@ -11,11 +11,19 @@ export default function TrialComplete() {
   const navigation = useNavigation<ScreenNavigationProp>();
   useCustomBackHandler(() => true); // Returning `true` disables the back button
 
-  const { logMessage, setLogMessage, resetLogMessage } = useScenarioStore();
+  const { logMessage, setLogMessage, resetLogMessage, appendToLog } =
+    useScenarioStore();
+
+  const storeFile = async () => {
+    // Add to log
+    await appendToLog(logMessage);
+  };
 
   const handleComplete = () => {
     setLogMessage("TrialComplete, \n");
+    storeFile(); // Save the log message to the CSV file
     console.log(logMessage);
+
     // Debugging only, should be removed in production, will be saved to csv file
     resetLogMessage(); // Reset the log message for the next trial
     navigation.navigate("Admin");
@@ -77,7 +85,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#ECE6F0",
-    padding: 40,
+    padding: 90,
     borderRadius: 5,
   },
   cancelButton: {

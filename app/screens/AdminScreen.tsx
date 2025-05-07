@@ -3,6 +3,7 @@ import { useScenarioStore } from "@/app/store/store";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/types/navigation";
+import { useCustomBackHandler } from "@/app/hooks/backHandler";
 
 //console.log("Store available?", !!useScenarioStore); // Debugging, remove in production
 
@@ -20,6 +21,7 @@ export default function AdminScreen() {
     incrementParticipantID,
     setLogMessage,
   } = useScenarioStore();
+  useCustomBackHandler(() => true); // Returning `true` disables the back button
 
   // Scenario data - expand this for 20+ scenarios later
   const scenarios = [

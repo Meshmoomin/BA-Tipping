@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useScenarioStore } from '@/app/store/store';
 import { ScreenNavigationProp } from '@/types/navigation';
 import { commonStyles } from '@/app/styles/commonStyles';
 
@@ -12,9 +13,16 @@ export default function PaymentScreen() {
         navigation.navigate('FollowUpGeneral');
     };
 
+    const { tippedTotal, setLogMessage } = useScenarioStore();
+
+    const handlePaymentSuccess = () => {
+        setLogMessage('PaymentSuccess, \n');
+        navigateToFollowUp();
+    };
+
     return (
         <View style={styles.container}>
-            <Pressable onPress={navigateToFollowUp} style={[styles.button,commonStyles.button ]}>
+            <Pressable onPress={handlePaymentSuccess} style={[styles.button,commonStyles.button ]}>
                 <Text style={commonStyles.buttonText}>  
                     Bezahlen
                 </Text> 

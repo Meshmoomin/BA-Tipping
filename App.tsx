@@ -1,3 +1,4 @@
+import React from "react";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -9,14 +10,22 @@ import FollowUpGeneral from "@/app/screens/followUp/followUpGeneral";
 import FollowUpComplexity from "@/app/screens/followUp/followUpComplexity";
 import FollowUpIntrusiveness from "@/app/screens/followUp/followUpIntrusiveness";
 import TerminalView from "./app/components/TerminalView";
-import PaymentScreen from "@/app/screens/paymentScreen";
+import PaymentScreenNew from "@/app/screens/paymentScreenCodegen";
 import TrialComplete from "@/app/screens/trialComplete";
 import TotalEntry from "@/app/screens/totalEntry";
 import { View } from "react-native";
+import { initLogger } from "@/app/logger/logger";
+import { useEffect } from "react";
+import { useScenarioStore } from "./app/store/store";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  const initLogFile = useScenarioStore((state) => state.initLogFile);
+
+  React.useEffect(() => {
+    initLogFile();
+  }, []);
   return (
     <View style={{ flex: 1 }}>
       <NavigationContainer>
@@ -42,7 +51,7 @@ export default function App() {
               name="FollowUpIntrusiveness"
               component={FollowUpIntrusiveness}
             />
-            <Stack.Screen name="Payment" component={PaymentScreen} />
+            <Stack.Screen name="Payment" component={PaymentScreenNew} />
             <Stack.Screen name="TrialComplete" component={TrialComplete} />
             <Stack.Screen name="totalEntry" component={TotalEntry} />
             {/* Add more screens as needed */}
