@@ -120,8 +120,10 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
   },
   keyboard: {
+    width: "80%",
     flexDirection: "row",
     flexWrap: "wrap",
+    alignSelf: "center",
     justifyContent: "center",
     marginTop: 20,
   },

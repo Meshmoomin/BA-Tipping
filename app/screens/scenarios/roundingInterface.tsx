@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useScenarioStore } from "@/app/store/store";
 import { ScreenNavigationProp } from "@/types/navigation";
 import { commonStyles } from "@/app/styles/commonStyles";
+import { useTipRounding } from "@/app/hooks/tipRounding";
 import RoundingCarousel from "@/app/components/flatListCarousel";
 
 import OkChevron from "@/assets/Icons/OkChevron";
@@ -16,7 +17,7 @@ export default function Scenario1() {
 
   const [currentTippedTotal, setCurrentTippedTotal] =
     React.useState(currentTotal); // Read currentTotal from totalEntry
-  const values = [5.0, 4.5, 4.0, 3.5, 3.2]; // replace with algorithm
+  const values = useTipRounding(currentTotal); //[5.0, 4.5, 4.0, 3.5, 3.2]; // replace with algorithm
 
   const handleComplete = () => {
     setTippedTotal(currentTippedTotal); // Update Zustand store with the new total
@@ -54,9 +55,7 @@ export default function Scenario1() {
           <Text style={[styles.totalText, commonStyles.lightGrey]}>
             Betrag:
           </Text>
-          <View style={[styles.currentTotalNumber, styles.totalNumberFlexBox]}>
-            <Text style={styles.totalText}>{currentTotal.toFixed(2)}€</Text>
-          </View>
+          <Text style={styles.totalText}>{currentTotal.toFixed(2)}€</Text>
         </View>
 
         <View style={styles.carouselBox}>
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
   },
   totalText: {
     fontSize: 28,
-    lineHeight: 36,
+    lineHeight: 40,
     fontWeight: 500,
     fontFamily: "Roboto",
     color: "#afafaf",
